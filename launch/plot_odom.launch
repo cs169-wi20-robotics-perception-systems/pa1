@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<launch>
+  <arg name="record" default="0" />
+
+  <!-- plot robot's odometry and plot the data on a graph -->
+  <node pkg="pa1" name="plot_rosbot_odom" type="plot_rosbot_odom.py" output="screen" />
+
+  <!-- record ROS topics -->
+  <group if="$(arg record)">
+    <include file="$(find pa1)/launch/logger.launch" />
+  </group>
+
+</launch>

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<launch>
+  <arg name="bag.name" default="$(find pa1)/data/$(optenv EXPERIMENT pa1)"/>
+  <arg name="bag.topics"
+       default=
+       "
+/rosout
+       "/>
+  <node pkg="rosbag" type="record" name="$(anon record)" args="--output-prefix=$(arg bag.name) $(arg bag.topics)" />
+</launch>

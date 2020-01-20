@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<launch>
+  <arg name="record" default="0" />
+  <arg name="distance" default="2.0" />    <!-- measured in meters -->
+  <arg name="linear_speed" default="0.2" />  <!-- measured in meters / sec -->
+
+  <!-- move robot forward at given distance and velocity-->
+  <node pkg="pa1" name="move_rosbot_forward" type="move_rosbot_forward.py" args="$(arg distance) $(arg linear_speed)" output="screen" />
+
+  <!-- record ROS topics -->
+  <group if="$(arg record)">
+    <include file="$(find pa1)/launch/logger.launch" />
+  </group>
+
+</launch>
