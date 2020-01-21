@@ -1,12 +1,11 @@
 import rospy
 import sys
 
-from nav_msgs.msg import Odometry
-from geometry_msgs.msg import Twist, Point
+from geometry_msgs.msg import Twist, Point, PoseStamped
 from visualization_msgs.msg import Marker
 
 RATE = 10
-BUFFER_DISTANCE = 0.02
+BUFFER_DISTANCE = 0.01
 
 class Rosbot:
     def __init__(self, distance = 1.0, linear_speed = 0.2):
@@ -17,7 +16,7 @@ class Rosbot:
         self.current_distance = 0.0
         self.poses = []
 
-        rospy.Subscriber("/odom", Odometry, self.pose_callback)
+        rospy.Subscriber("/pose", PoseStamped, self.pose_callback)
 
         self.command_pub = rospy.Publisher("/cmd_vel", Twist, queue_size=1)
         self.marker_pub = rospy.Publisher("/rosbot8/frame", Marker, queue_size=100)
@@ -33,8 +32,8 @@ class Rosbot:
             msg: Odometry msg that has the current robot's position and orientation.
         """
         current_pose = Point()
-        current_pose.x = msg.pose.pose.position.x
-        current_pose.y = msg.pose.pose.position.y
+        current_pose.x = msg.pose.position.x
+        current_pose.y = msg.pose.position.y
 
         self.poses.append(current_pose)
 
@@ -82,7 +81,7 @@ class Rosbot:
         """
         while not rospy.is_shutdown():
             marker = Marker()
-            marker.header.frame_id = "/base_link"
+            marker.header.frame_id = "base_link"
             marker.header.stamp = rospy.Time()
             marker.type = marker.POINTS
             marker.action = marker.ADD
