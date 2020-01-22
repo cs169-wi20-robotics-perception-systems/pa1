@@ -1,0 +1,3 @@
+# ignore data directory
+src/pa1/*.pyc
+data/*

@@ -11,4 +11,6 @@ if __name__ == "__main__":
     rosbot = Rosbot()
 
     rospy.loginfo("Rosbot8 control initialized.")
+
+    # plots/publishes the x and y coordinates of the robot as a marker
     rosbot.plot_odom()

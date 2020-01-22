@@ -15,4 +15,6 @@ if __name__ == "__main__":
     rosbot = Rosbot(distance, linear_speed)
 
     rospy.loginfo("Rosbot8 control initialized.")
+
+    # moves forward at a given distance with the provided linear speed
     rosbot.move_forward()
